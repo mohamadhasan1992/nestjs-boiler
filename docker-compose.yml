@@ -1,0 +1,45 @@
+services:
+  forbix:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: forbix
+    restart: always
+    ports:
+      - '3000:3000'
+    environment:
+      MONGO_URI: mongodb://mongo:27017/forbix
+      NODE_ENV: production
+    depends_on:
+      - mongo
+    networks:
+      - app-net
+  mongo:
+    image: mongo:5.0
+    container_name: mongodb-forbix
+    restart: always
+    ports:
+      - '27017:27017'
+    volumes:
+      - mongo-data-forbix:/data/db
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: mongousername
+      MONGO_INITDB_ROOT_PASSWORD: password
+    networks:
+      - app-net
+  redis:
+    container_name: forbix-redis
+    image: redis:alpine
+    restart: always
+    command: redis-server --requirepass redisPassword
+    ports:
+      - '6389:6379'
+    networks:
+      - app-net
+    volumes:
+      - redis-data-forbix:/data
+volumes:
+  mongo-data-forbix:
+  redis-data-forbix:
+networks:
+  app-net:
