@@ -8,8 +8,10 @@ services:
     ports:
       - '3000:3000'
     environment:
-      MONGO_URI: mongodb://mongo:27017/forbix
+      MONGO_URI: mongodb://mongousername:password@mongo:27017/main?authSource=admin
       NODE_ENV: production
+    env_file:
+      - ./env/.env.production
     depends_on:
       - mongo
     networks:

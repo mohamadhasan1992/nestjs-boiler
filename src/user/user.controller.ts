@@ -29,7 +29,7 @@ export class UserController {
   ) {
     const user = await this.userService.findById(id);
     // find user companies
-    const companies = await this.companyService.findAll({ user: id });
+    const { data: companies } = await this.companyService.findAll({ user: id });
     return {
       user,
       companies

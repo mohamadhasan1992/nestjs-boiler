@@ -3,15 +3,14 @@ import { AppModule } from './app.module';
 import { AllExceptionFilter } from './common';
 import { LoggerService } from './common';
 import helmet from 'helmet';
-import cookieParser from 'cookie-parser';
 import { LoggingInterceptor } from './common';
 import { ValidationPipe } from '@nestjs/common';
 
+import * as cookieParser from 'cookie-parser';
 
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-
   // CORS
   app.enableCors({
     origin: process.env.ALLOWED_ORIGINS?.split(',') || ["http://localhost:3000"],

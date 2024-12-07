@@ -1,5 +1,6 @@
-import { Injectable, LoggerService } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { OnEvent } from '@nestjs/event-emitter';
+import { LoggerService } from 'src/common';
 import { EventEnum } from 'src/common/enum';
 import { SendEmailProducer } from 'src/queue/producers/send-email.producer';
 import { UserCreatedEvent } from 'src/user/event/user.created.event';
@@ -19,7 +20,7 @@ export class UserCreatedEventListener {
             user
         } = event;
         try {
-            console.log("user inside event listener", user);
+            this.loggerService.log("UserCreatedEventListener", `User created: ${user.email}`)
             await this.sendEmailProducer.addJob(user)
         } catch (err) {
             this.loggerService.error("UserCreatedEventListener", err.message, err.stack)

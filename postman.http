@@ -1,0 +1,23 @@
+# create User
+POST http://localhost:3000/user
+
+{
+    "user": {
+        "email": "test@test.com",
+        "name": "name"
+    },
+    "company": {
+        "name": "company name"
+    }
+}
+
+
+# User list
+GET http://localhost:3000/user
+
+
+# User by id
+GET http://localhost:3000/user/666666666666666666666666
+
+# Company list
+GET http://localhost:3000/company
